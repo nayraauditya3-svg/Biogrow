@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BIOGROW | Dari Limbah, untuk Kehidupan yang Lebih Hijau</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tailwind Custom Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            forest: {
+              950: '#0B241B',
+              900: '#12372A',
+              800: '#1B4D3B',
+              700: '#27664F',
+            },
+            sage: {
+              600: '#436850',
+              500: '#588166',
+              200: '#D2E0D3',
+              100: '#EBF2EC',
+            },
+            lime: {
+              500: '#7CB342',
+              400: '#9CCC65',
+              300: '#ADBC9F',
+              100: '#F0F7E6',
+            },
+            cream: {
+              50: '#FAFCF8',
+              100: '#F5F8EE',
+              200: '#FBFADA',
+            }
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'float-delayed': 'float 6s ease-in-out 3s infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-12px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Utilities & Scroll Reveal */
+    body {
+      background-color: #FAFCF8;
+      color: #12372A;
+      overflow-x: hidden;
+    }
+
+    .glass-nav {
+      background: rgba(250, 252, 248, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .hero-pattern {
+      background-image: 
+        radial-gradient(circle at 85% 15%, rgba(156, 204, 101, 0.22) 0%, transparent 45%),
+        radial-gradient(circle at 10% 80%, rgba(67, 104, 80, 0.12) 0%, transparent 40%),
+        linear-gradient(180deg, #F5F8EE 0%, #FAFCF8 100%);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Custom Range Slider for 16-Day Timeline */
+    input[type="range"].ferment-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    input[type="range"].ferment-slider::-webkit-slider-runnable-track {
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ADBC9F 0%, #7CB342 50%, #12372A 100%);
+    }
+
+    input[type="range"].ferment-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      margin-top: -7px;
+      background-color: #12372A;
+      border: 4px solid #FBFADA;
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(18, 55, 42, 0.3);
+      transition: transform 0.15s ease;
+    }
+
+    input[type="range"].ferment-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+
+    /* Smooth Accordion Transition */
+    .accordion-content {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.3s ease-out;
+    }
+    .accordion-item.open .accordion-content {
+      grid-template-rows: 1fr;
+    }
+    .accordion-inner {
+      overflow: hidden;
+    }
+    .accordion-icon {
+      transition: transform 0.3s ease;
+    }
+    .accordion-item.open .accordion-icon {
+      transform: rotate(45deg);
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-lime-400 selection:text-forest-950">
+
+  <!-- ==================== STICKY NAVBAR ==================== -->
+  <nav class="sticky top-0 z-50 glass-nav border-b border-sage-200/70">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <!-- Logo -->
+        <a href="#beranda" class="flex items-center gap-2.5 group focus:outline-none">
+          <div class="w-10 h-10 rounded-xl bg-forest-900 flex items-center justify-center text-lime-400 shadow-sm group-hover:scale-105 transition-transform">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+            </svg>
+          </div>
+          <span class="font-display font-extrabold text-2xl tracking-tight text-forest-900">
+            BIO<span class="text-lime-500">GROW</span>
+          </span>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#beranda" class="text-sm font-medium text-forest-900/80 hover:text-forest-900 transition-colors">Beranda</a>
+          <a href="#tentang" class="text-sm font-medium text-forest-900/80 hover:text-forest-900 transition-colors">Tentang</a>
+          <a href="#keunggulan" class="text-sm font-medium text-forest-900/80 hover:text-forest-900 transition-colors">Keunggulan</a>
+          <a href="#proses" class="text-sm font-medium text-forest-900/80 hover:text-forest-900 transition-colors">Proses</a>
+          <a href="#peneliti" class="text-sm font-medium text-forest-900/80 hover:text-forest-900 transition-colors">Tim Peneliti</a>
+          <a href="#referensi" class="text-sm font-medium text-forest-900/80 hover:text-forest-900 transition-colors">Referensi</a>
+          <a href="#faq" class="text-sm font-medium text-forest-900/80 hover:text-forest-900 transition-colors">FAQ</a>
+        </div>
+
+        <!-- Desktop CTA & Mobile Hamburger -->
+        <div class="flex items-center gap-3">
+          <a href="#tentang" class="hidden sm:inline-flex items-center gap-2 bg-forest-900 hover:bg-forest-800 text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all">
+            <span>Kenali BIOGROW</span>
+            <svg class="w-4 h-4 text-lime-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H8M17 7V16" />
+            </svg>
+          </a>
+
+          <!-- Mobile Menu Button -->
+          <button id="mobileMenuBtn" type="button" aria-label="Buka menu navigasi" class="md:hidden p-2.5 rounded-xl text-forest-900 hover:bg-sage-100 focus:outline-none">
+            <svg id="menuIconOpen" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="menuIconClose" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-cream-50 border-b border-sage-200 px-4 pt-2 pb-6 space-y-2 shadow-lg">
+      <a href="#beranda" class="mobile-link block px-4 py-3 rounded-xl text-base font-semibold text-forest-900 hover:bg-sage-100">Beranda</a>
+      <a href="#tentang" class="mobile-link block px-4 py-3 rounded-xl text-base font-semibold text-forest-900 hover:bg-sage-100">Tentang Produk</a>
+      <a href="#keunggulan" class="mobile-link block px-4 py-3 rounded-xl text-base font-semibold text-forest-900 hover:bg-sage-100">Keunggulan</a>
+      <a href="#proses" class="mobile-link block px-4 py-3 rounded-xl text-base font-semibold text-forest-900 hover:bg-sage-100">Alur Penelitian</a>
+      <a href="#peneliti" class="mobile-link block px-4 py-3 rounded-xl text-base font-semibold text-forest-900 hover:bg-sage-100">Tim Peneliti</a>
+      <a href="#referensi" class="mobile-link block px-4 py-3 rounded-xl text-base font-semibold text-forest-900 hover:bg-sage-100">Daftar Pustaka</a>
+      <a href="#faq" class="mobile-link block px-4 py-3 rounded-xl text-base font-semibold text-forest-900 hover:bg-sage-100">FAQ</a>
+      <div class="pt-2">
+        <a href="#tentang" class="mobile-link block w-full text-center bg-forest-900 text-white font-semibold py-3 rounded-full">
+          Kenali BIOGROW ↗
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <header id="beranda" class="hero-pattern pt-10 pb-24 md:pt-16 md:pb-32 relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <!-- Left Copy -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-lime-100 border border-lime-400/40 text-forest-900 text-xs sm:text-sm font-bold tracking-wide">
+            <span class="w-2 h-2 rounded-full bg-lime-500 animate-ping"></span>
+            Pupuk Organik Cair • Inovasi Pelajar
+          </div>
+
+          <h1 class="font-display font-extrabold text-5xl sm:text-7xl lg:text-[84px] tracking-tighter leading-[0.95] text-forest-900">
+            BIO<span class="text-lime-500">GROW</span>
+          </h1>
+
+          <p class="text-lg sm:text-xl text-sage-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            <strong class="text-forest-900 font-semibold">Dari limbah, untuk kehidupan yang lebih hijau.</strong><br class="hidden sm:inline">
+            Inovasi pemanfaatan limbah pangan melalui biokonversi berbasis mikroba untuk mendukung pertanian berkelanjutan.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+            <a href="#tentang" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-forest-900 hover:bg-forest-800 text-white font-semibold px-7 py-4 rounded-full shadow-lg shadow-forest-900/15 hover:-translate-y-0.5 transition-all">
+              <span>Jelajahi BIOGROW</span>
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </a>
+            <a href="#proses" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-sage-100 text-forest-900 border border-sage-200 font-semibold px-7 py-4 rounded-full transition-all">
+              <span>Lihat Alur Penelitian</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Visual: Custom SVG Bottle Mockup + Floating Elements -->
+        <div class="lg:col-span-5 flex justify-center items-center relative">
+          <!-- Soft Glow Backdrop -->
+          <div class="absolute w-72 h-72 sm:w-80 sm:h-80 bg-lime-400/25 rounded-full blur-3xl -z-10"></div>
+
+          <!-- Floating Badge Top Left -->
+          <div class="hidden sm:flex items-center gap-2.5 bg-white/90 backdrop-blur-md border border-sage-200 px-4 py-2.5 rounded-2xl shadow-lg absolute top-6 left-2 lg:-left-4 animate-float z-10">
+            <div class="w-8 h-8 rounded-full bg-lime-100 flex items-center justify-center text-forest-900">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><path d="M14.5 9.5 17.5 6.5M6.5 17.5l3-3"/>
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-forest-900">Biokonversi Mikroba</p>
+              <p class="text-[11px] text-sage-600">Fermentasi 16 Hari</p>
+            </div>
+          </div>
+
+          <!-- Floating Badge Bottom Right -->
+          <div class="hidden sm:flex items-center gap-2.5 bg-forest-900 text-white px-4 py-2.5 rounded-2xl shadow-lg absolute bottom-8 right-2 lg:-right-2 animate-float-delayed z-10">
+            <span class="text-lime-400 text-lg">🌿</span>
+            <div>
+              <p class="text-xs font-bold">100% Limbah Pangan</p>
+              <p class="text-[11px] text-sage-200">Sayuran & Buah Organik</p>
+            </div>
+          </div>
+
+          <!-- Uploaded BIOGROW Product Bottle Showcase -->
+          <div class="relative w-72 sm:w-80 md:w-[340px] group">
+            <div class="relative rounded-[32px] bg-gradient-to-b from-white/95 to-cream-100/90 p-4 sm:p-5 border border-sage-200/90 shadow-2xl shadow-forest-950/15 backdrop-blur-sm transition-transform duration-500 group-hover:-translate-y-1">
+              <!-- Subtle Top Botanical Strip -->
+              <div class="flex items-center justify-between px-2 pb-3 text-[11px] font-bold tracking-wider uppercase text-sage-600">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-lime-500"></span>
+                  Prototipe Produk
+                </span>
+                <span class="text-forest-900">1000 mL</span>
+              </div>
+
+              <!-- Product Image Frame -->
+              <div class="relative overflow-hidden rounded-2xl bg-[#c4c6c8] aspect-square flex items-center justify-center shadow-inner group/img">
+                <img 
+                  id="bottlePreviewImg"
+                  src="biogrow-product.png" 
+                  alt="Botol Produk Pupuk Organik Cair BIOGROW" 
+                  onerror="this.onerror=null;this.alt='Foto produk BIOGROW belum tersedia';"
+                  class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                />
+
+              </div>
+
+              <!-- Bottom Caption Bar -->
+              <div class="pt-3.5 px-2 flex items-center justify-between">
+                <div>
+                  <p class="font-display font-bold text-sm text-forest-900">BIOGROW Liquid Fertilizer</p>
+                  <p class="text-xs text-sage-600">Biokonversi Limbah Sayur & Buah</p>
+                </div>
+                <span class="px-2.5 py-1 rounded-full bg-lime-100 text-forest-900 font-bold text-[11px]">
+                  POC
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HIGHLIGHT STATS BAR ==================== -->
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 md:-mt-16 relative z-20 reveal">
+    <div class="bg-white rounded-3xl shadow-xl shadow-forest-900/5 border border-sage-200/80 p-6 sm:p-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4 lg:divide-x divide-sage-200">
+        <div class="text-center px-2">
+          <div class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-lime-100 text-forest-900 mb-2">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+          </div>
+          <strong class="block font-display font-bold text-lg text-forest-900">Food Waste</strong>
+          <span class="text-xs sm:text-sm text-sage-600">Bahan baku organik</span>
+        </div>
+
+        <div class="text-center px-2">
+          <div class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-lime-100 text-forest-900 mb-2">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+          </div>
+          <strong class="block font-display font-bold text-lg text-forest-900">Fermentasi</strong>
+          <span class="text-xs sm:text-sm text-sage-600">Proses biokonversi</span>
+        </div>
+
+        <div class="text-center px-2">
+          <div class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-lime-100 text-forest-900 mb-2">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <strong class="block font-display font-bold text-lg text-forest-900">POC</strong>
+          <span class="text-xs sm:text-sm text-sage-600">Produk hasil penelitian</span>
+        </div>
+
+        <div class="text-center px-2">
+          <div class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-lime-100 text-forest-900 mb-2">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <strong class="block font-display font-bold text-lg text-forest-900">Green Future</strong>
+          <span class="text-xs sm:text-sm text-sage-600">Semangat keberlanjutan</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TENTANG PRODUK & KOMPOSISI INTERAKTIF ==================== -->
+  <section id="tentang" class="py-20 md:py-28 scroll-mt-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        
+        <!-- Left Description -->
+        <div class="lg:col-span-7 space-y-6 reveal">
+          <span class="inline-block px-3.5 py-1 rounded-full bg-sage-100 text-forest-900 text-xs font-bold uppercase tracking-wider">
+            Tentang Produk
+          </span>
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight text-forest-900 leading-tight">
+            Mengubah sisa menjadi potensi.
+          </h2>
+          <p class="text-base sm:text-lg text-sage-600 leading-relaxed">
+            BIOGROW merupakan produk pupuk organik cair yang dikembangkan melalui pemanfaatan limbah pangan berupa sisa sayuran dan buah. Bahan organik difermentasi dengan bantuan EM4, air cucian beras, dan molase sebagai bagian dari upaya pengelolaan limbah yang lebih bertanggung jawab.
+          </p>
+
+          <!-- Interactive Formula / Ingredients Explorer -->
+          <div class="pt-4">
+            <p class="text-xs font-bold uppercase tracking-wider text-forest-900 mb-3 flex items-center gap-2">
+              <span>Klik bahan untuk melihat perannya dalam fermentasi:</span>
+            </p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="ingredientTabs">
+              <button type="button" data-ing="limbah" class="ing-btn active text-left p-3.5 rounded-2xl border-2 border-forest-900 bg-forest-900 text-white transition-all shadow-sm">
+                <span class="text-xl block mb-1">🥬</span>
+                <span class="font-display font-bold text-xs sm:text-sm block">Sayur & Buah</span>
+              </button>
+              <button type="button" data-ing="em4" class="ing-btn text-left p-3.5 rounded-2xl border border-sage-200 bg-white hover:border-forest-800 text-forest-900 transition-all">
+                <span class="text-xl block mb-1">🦠</span>
+                <span class="font-display font-bold text-xs sm:text-sm block">EM4</span>
+              </button>
+              <button type="button" data-ing="beras" class="ing-btn text-left p-3.5 rounded-2xl border border-sage-200 bg-white hover:border-forest-800 text-forest-900 transition-all">
+                <span class="text-xl block mb-1">🌾</span>
+                <span class="font-display font-bold text-xs sm:text-sm block">Cucian Beras</span>
+              </button>
+              <button type="button" data-ing="molase" class="ing-btn text-left p-3.5 rounded-2xl border border-sage-200 bg-white hover:border-forest-800 text-forest-900 transition-all">
+                <span class="text-xl block mb-1">🍯</span>
+                <span class="font-display font-bold text-xs sm:text-sm block">Molase</span>
+              </button>
+            </div>
+
+            <!-- Ingredient Detail Box -->
+            <div id="ingredientDetail" class="mt-3 p-5 rounded-2xl bg-cream-100 border border-sage-200 transition-all">
+              <div class="flex items-start gap-3.5">
+                <div id="ingIcon" class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-xl shrink-0 shadow-xs">🥬</div>
+                <div>
+                  <h4 id="ingTitle" class="font-display font-bold text-forest-900 text-base">Sisa Sayuran & Buah (Substrat Organik)</h4>
+                  <p id="ingDesc" class="text-sm text-sage-600 mt-1 leading-relaxed">
+                    Berfungsi sebagai bahan baku utama kaya senyawa organik yang akan diuraikan oleh mikroorganisme menjadi bentuk cair yang lebih sederhana.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Card: Our Idea -->
+        <div class="lg:col-span-5 reveal">
+          <div class="bg-cream-200/70 border border-lime-300/60 rounded-3xl p-8 sm:p-10 relative overflow-hidden shadow-sm">
+            <!-- Subtle Corner Leaf Decoration -->
+            <svg class="w-32 h-32 text-lime-500/15 absolute -bottom-6 -right-6 pointer-events-none" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8Z"/>
+            </svg>
+
+            <span class="inline-block px-3.5 py-1 rounded-full bg-forest-900 text-cream-200 text-xs font-bold uppercase tracking-wider mb-6">
+              Our Idea
+            </span>
+
+            <h3 class="font-display font-extrabold text-3xl sm:text-4xl text-forest-900 tracking-tight leading-tight mb-4">
+              Waste less.<br>
+              <span class="text-sage-600">Grow more.</span>
+            </h3>
+
+            <p class="text-forest-900/80 text-base sm:text-lg leading-relaxed mb-6">
+              Limbah bukan selalu akhir dari sesuatu, tetapi dapat menjadi awal dari pemanfaatan baru.
+            </p>
+
+            <div class="pt-5 border-t border-forest-900/10 flex items-center justify-between text-xs font-semibold text-forest-900">
+              <span>Konsep Sirkular Organik</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/80 text-forest-900">Biokonversi</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== NILAI & KEUNGGULAN BIOGROW ==================== -->
+  <section id="keunggulan" class="py-20 md:py-28 bg-cream-100 border-y border-sage-200/70 scroll-mt-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl reveal">
+        <span class="inline-block px-3.5 py-1 rounded-full bg-white border border-sage-200 text-forest-900 text-xs font-bold uppercase tracking-wider mb-3">
+          Nilai BIOGROW
+        </span>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight text-forest-900 mb-4">
+          Kenapa BIOGROW?
+        </h2>
+        <p class="text-base sm:text-lg text-sage-600">
+          Tiga fokus yang menjadi dasar pengembangan produk.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+        <!-- Card 1 -->
+        <div class="reveal group bg-white rounded-3xl p-8 border border-sage-200/80 hover:border-lime-500 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+          <div class="w-14 h-14 rounded-2xl bg-lime-100 group-hover:bg-forest-900 text-forest-900 group-hover:text-lime-400 flex items-center justify-center mb-6 transition-colors">
+            <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+          </div>
+          <h3 class="font-display font-bold text-xl text-forest-900 mb-3">Pengurangan Limbah</h3>
+          <p class="text-sage-600 leading-relaxed text-sm sm:text-base">
+            Memanfaatkan kembali limbah pangan agar memiliki nilai guna.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="reveal group bg-white rounded-3xl p-8 border border-sage-200/80 hover:border-lime-500 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+          <div class="w-14 h-14 rounded-2xl bg-lime-100 group-hover:bg-forest-900 text-forest-900 group-hover:text-lime-400 flex items-center justify-center mb-6 transition-colors">
+            <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+          </div>
+          <h3 class="font-display font-bold text-xl text-forest-900 mb-3">Biokonversi</h3>
+          <p class="text-sage-600 leading-relaxed text-sm sm:text-base">
+            Menggunakan proses fermentasi berbasis mikroba dalam pengolahan bahan organik.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="reveal group bg-white rounded-3xl p-8 border border-sage-200/80 hover:border-lime-500 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+          <div class="w-14 h-14 rounded-2xl bg-lime-100 group-hover:bg-forest-900 text-forest-900 group-hover:text-lime-400 flex items-center justify-center mb-6 transition-colors">
+            <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </div>
+          <h3 class="font-display font-bold text-xl text-forest-900 mb-3">Keberlanjutan</h3>
+          <p class="text-sage-600 leading-relaxed text-sm sm:text-base">
+            Mendorong pengelolaan limbah yang lebih bertanggung jawab.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ALUR PENELITIAN & SIMULASI 16 HARI ==================== -->
+  <section id="proses" class="py-20 md:py-28 scroll-mt-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl reveal">
+        <span class="inline-block px-3.5 py-1 rounded-full bg-sage-100 text-forest-900 text-xs font-bold uppercase tracking-wider mb-3">
+          Alur Penelitian
+        </span>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight text-forest-900 mb-4">
+          Dari limbah menjadi BIOGROW.
+        </h2>
+        <p class="text-base sm:text-lg text-sage-600">
+          Gambaran singkat tahapan pengolahan dalam penelitian.
+        </p>
+      </div>
+
+      <!-- 3 Main Steps -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 reveal">
+        <!-- Step 1 -->
+        <div class="relative bg-cream-100 rounded-3xl p-7 border border-sage-200">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-display font-extrabold text-sm px-3 py-1 rounded-full bg-forest-900 text-lime-400">01 · Pengumpulan</span>
+            <span class="text-2xl">🧺</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-forest-900 mb-2">Seleksi Bahan Organik</h3>
+          <p class="text-sm sm:text-base text-sage-600 leading-relaxed">
+            Sisa sayuran dan buah dikumpulkan sebagai bahan organik.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative bg-cream-100 rounded-3xl p-7 border border-sage-200">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-display font-extrabold text-sm px-3 py-1 rounded-full bg-forest-900 text-lime-400">02 · Fermentasi</span>
+            <span class="text-2xl">⏳</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-forest-900 mb-2">Biokonversi 16 Hari</h3>
+          <p class="text-sm sm:text-base text-sage-600 leading-relaxed">
+            Bahan difermentasi selama 16 hari dengan variasi penambahan EM4.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative bg-cream-100 rounded-3xl p-7 border border-sage-200">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-display font-extrabold text-sm px-3 py-1 rounded-full bg-forest-900 text-lime-400">03 · Pengujian</span>
+            <span class="text-2xl">🔬</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-forest-900 mb-2">Observasi Parameter</h3>
+          <p class="text-sm sm:text-base text-sage-600 leading-relaxed">
+            Sampel diamati karakteristik fisik, pH, dan pembacaan kandungan hara menggunakan kit.
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive 16-Day Research Timeline Explorer -->
+      <div class="mt-12 bg-white rounded-3xl border border-sage-200 p-6 sm:p-10 shadow-sm reveal">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-sage-100">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-lime-500">Eksplorasi Tahapan Riset</span>
+            <h3 class="font-display font-bold text-xl sm:text-2xl text-forest-900 mt-1">
+              Timeline 16 Hari Fermentasi & Pengamatan
+            </h3>
+          </div>
+          <div class="flex items-center gap-2 bg-cream-100 p-1.5 rounded-full self-start md:self-auto">
+            <button type="button" data-day="1" class="day-tab px-4 py-1.5 rounded-full text-xs font-bold bg-forest-900 text-white transition-all">Hari 1</button>
+            <button type="button" data-day="8" class="day-tab px-4 py-1.5 rounded-full text-xs font-bold text-forest-900 hover:bg-white transition-all">Hari 8</button>
+            <button type="button" data-day="16" class="day-tab px-4 py-1.5 rounded-full text-xs font-bold text-forest-900 hover:bg-white transition-all">Hari 16</button>
+          </div>
+        </div>
+
+        <!-- Slider Control -->
+        <div class="my-6">
+          <div class="flex justify-between text-xs font-semibold text-sage-600 mb-2">
+            <span>Awal Pencampuran (Hari 1)</span>
+            <span id="currentDayBadge" class="text-forest-900 font-bold bg-lime-100 px-3 py-0.5 rounded-full">Fase: Hari ke-1</span>
+            <span>Akhir Fermentasi (Hari 16)</span>
+          </div>
+          <input id="daySlider" type="range" min="1" max="16" value="1" class="w-full ferment-slider" aria-label="Geser hari fermentasi dari 1 hingga 16">
+        </div>
+
+        <!-- Dynamic Observation Panel -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+          <div class="p-4 rounded-2xl bg-cream-50 border border-sage-200/70">
+            <span class="text-xs font-bold text-sage-600 uppercase">Status Proses</span>
+            <p id="obsPhase" class="font-display font-bold text-forest-900 text-base mt-1">Pencampuran & Inokulasi Awal</p>
+            <p id="obsDesc" class="text-xs sm:text-sm text-sage-600 mt-1.5 leading-relaxed">
+              Sisa sayuran dan buah dicampurkan bersama air cucian beras, molase, serta variasi penambahan EM4 untuk memulai aktivitas mikroba.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-cream-50 border border-sage-200/70">
+            <span class="text-xs font-bold text-sage-600 uppercase">Karakteristik Fisik</span>
+            <p id="obsPhysicalTitle" class="font-display font-bold text-forest-900 text-base mt-1">Fase Awal Bahan</p>
+            <p id="obsPhysical" class="text-xs sm:text-sm text-sage-600 mt-1.5 leading-relaxed">
+              Potongan bahan organik masih tampak segar dan terpisah dari larutan media fermentasi.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-cream-50 border border-sage-200/70">
+            <span class="text-xs font-bold text-sage-600 uppercase">Fokus Pengujian Riset</span>
+            <p id="obsTestTitle" class="font-display font-bold text-forest-900 text-base mt-1">Persiapan Sampel Variasi</p>
+            <p id="obsTest" class="text-xs sm:text-sm text-sage-600 mt-1.5 leading-relaxed">
+              Pencatatan kondisi awal tiap perlakuan variasi EM4 sebelum proses fermentasi berlangsung selama 16 hari.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TIM PENELITI SECTION ==================== -->
+  <section id="peneliti" class="py-20 md:py-28 bg-white border-t border-sage-200/70 scroll-mt-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Photo Showcase -->
+        <div class="lg:col-span-6 reveal">
+          <div class="relative rounded-[32px] bg-cream-100 p-4 sm:p-6 border border-sage-200 shadow-xl shadow-forest-900/5">
+            <!-- Photo Container -->
+            <div class="relative overflow-hidden rounded-2xl bg-sage-100 aspect-[4/4.3]">
+              <img 
+                id="teamPreviewImg"
+                src="biogrow-team.png" 
+                alt="Tim Peneliti BIOGROW: Einar Nahila N. A. dan Nayra Auditya R." 
+                onerror="this.onerror=null;this.alt='Foto tim peneliti belum tersedia';"
+                class="w-full h-full object-cover object-top"
+              />
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Researcher Story -->
+        <div class="lg:col-span-6 space-y-6 reveal">
+          <span class="inline-block px-3.5 py-1 rounded-full bg-lime-100 border border-lime-400/40 text-forest-900 text-xs font-bold uppercase tracking-wider">
+            Tim Peneliti OPI
+          </span>
+
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight text-forest-900 leading-tight">
+            We start.<br>
+            <span class="text-lime-500">We grow.</span>
+          </h2>
+
+          <p class="text-base sm:text-lg text-sage-600 leading-relaxed">
+            Di balik pengembangan <strong class="text-forest-900 font-semibold">BIOGROW</strong>, kami berkolaborasi merancang penelitian biokonversi limbah pangan menjadi pupuk organik cair yang ramah lingkungan dan aplikatif sebagai langkah kecil menuju pengelolaan limbah yang lebih hijau.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== DAFTAR PUSTAKA SECTION ==================== -->
+  <section id="referensi" class="py-20 md:py-28 bg-white border-t border-sage-200/70 scroll-mt-20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+        <span class="inline-block px-3.5 py-1 rounded-full bg-lime-100 border border-lime-400/40 text-forest-900 text-xs font-bold uppercase tracking-wider mb-3">Landasan ilmiah</span>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl tracking-tight text-forest-900">Daftar Pustaka</h2>
+        <p class="text-sage-600 mt-4 leading-relaxed">Sumber literatur dan referensi yang digunakan dalam penyusunan penelitian BIOGROW.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 reveal">
+        <article class="rounded-2xl border border-sage-200 bg-cream-50 p-5 sm:p-6"><p class="text-xs font-bold uppercase tracking-wider text-lime-700 mb-2">2025 · Artikel penelitian</p><h3 class="font-display font-bold text-forest-900 leading-snug">Abidin, A. Z., Steven, S., Siregar, N. S., Hutahaean, A. C., Graha, H. P. R., dkk.</h3><p class="text-sage-700 text-sm mt-2">Extending the shelf life of organic liquid fertilizer from food waste processing based on Masaro technology.</p><a class="inline-flex mt-3 text-sm font-semibold text-forest-900 underline underline-offset-4" href="https://doi.org/10.34044/j.anres.2025.59.1.03" target="_blank" rel="noopener noreferrer">Buka artikel / DOI ↗</a></article>
+        <article class="rounded-2xl border border-sage-200 bg-cream-50 p-5 sm:p-6"><p class="text-xs font-bold uppercase tracking-wider text-lime-700 mb-2">2022 · Lembaga</p><h3 class="font-display font-bold text-forest-900 leading-snug">Badan Pangan Nasional</h3><p class="text-sage-700 text-sm mt-2">9 Organisasi Sepakat Gabung Bersama Badan Pangan Nasional Kurangi Food Waste di Indonesia.</p><a class="inline-flex mt-3 text-sm font-semibold text-forest-900 underline underline-offset-4" href="https://badanpangan.go.id/blog/post/9-organisasi-sepakat-gabung-bersama-badan-pangan-nasional-kurangi-food-waste-di-indonesia" target="_blank" rel="noopener noreferrer">Buka sumber ↗</a></article>
+        <article class="rounded-2xl border border-sage-200 bg-cream-50 p-5 sm:p-6"><p class="text-xs font-bold uppercase tracking-wider text-lime-700 mb-2">2021 · Jurnal</p><h3 class="font-display font-bold text-forest-900 leading-snug">Prasetyo, D., &amp; Evizal, R.</h3><p class="text-sage-700 text-sm mt-2">Pembuatan dan Upaya Peningkatan Kualitas Pupuk Organik Cair.</p><a class="inline-flex mt-3 text-sm font-semibold text-forest-900 underline underline-offset-4" href="https://jurnal.fp.unila.ac.id/index.php/JAT/article/view/5054" target="_blank" rel="noopener noreferrer">Buka artikel ↗</a></article>
+        <article class="rounded-2xl border border-sage-200 bg-cream-50 p-5 sm:p-6"><p class="text-xs font-bold uppercase tracking-wider text-lime-700 mb-2">2025 · Jurnal</p><h3 class="font-display font-bold text-forest-900 leading-snug">Sormin, H. J.</h3><p class="text-sage-700 text-sm mt-2">Potensi Pemanfaatan Limbah Organik Rumah Tangga menjadi Pupuk Organik Cair melalui Proses Fermentasi menggunakan Bioaktivator EM4.</p><a class="inline-flex mt-3 text-sm font-semibold text-forest-900 underline underline-offset-4" href="https://doi.org/10.30872/jkm.v22i2.1212" target="_blank" rel="noopener noreferrer">Buka artikel / DOI ↗</a></article>
+        <article class="rounded-2xl border border-sage-200 bg-cream-50 p-5 sm:p-6"><p class="text-xs font-bold uppercase tracking-wider text-lime-700 mb-2">2023 · Jurnal</p><h3 class="font-display font-bold text-forest-900 leading-snug">Adi, I. P. C. W., W., I. P. S., &amp; Madrini, I. A. G. B.</h3><p class="text-sage-700 text-sm mt-2">Pengaruh Penambahan Bioaktivator EM4 dan Molase dalam Pembuatan Pupuk Organik Cair dari Limbah Restoran Khas Bali.</p><a class="inline-flex mt-3 text-sm font-semibold text-forest-900 underline underline-offset-4" href="https://ejournal3.unud.ac.id/index.php/beta/id/article/view/2792" target="_blank" rel="noopener noreferrer">Buka artikel ↗</a></article>
+        <article class="rounded-2xl border border-sage-200 bg-cream-50 p-5 sm:p-6"><p class="text-xs font-bold uppercase tracking-wider text-lime-700 mb-2">2022 · Jurnal</p><h3 class="font-display font-bold text-forest-900 leading-snug">Rohmadi, M., Septiana, N., &amp; Adi, P. A.</h3><p class="text-sage-700 text-sm mt-2">Pembuatan Pupuk Organik Cair dan Kompos dari Limbah Organik Rumah Tangga.</p><a class="inline-flex mt-3 text-sm font-semibold text-forest-900 underline underline-offset-4" href="https://ejournal.undip.ac.id/index.php/ilmulingkungan/article/view/45835" target="_blank" rel="noopener noreferrer">Buka artikel ↗</a></article>
+        <article class="rounded-2xl border border-sage-200 bg-cream-50 p-5 sm:p-6"><p class="text-xs font-bold uppercase tracking-wider text-lime-700 mb-2">2024 · Jurnal CEJS</p><h3 class="font-display font-bold text-forest-900 leading-snug">Putri, R., Muarif, A., Kamar, I., Sylvia, N., Suryati, S., &amp; Yosi, A.</h3><p class="text-sage-700 text-sm mt-2">Pembuatan Pupuk Organik Cair dari Limbah Sayuran dan Limbah Cair Tahu dengan Bioaktivator EM4.</p><a class="inline-flex mt-3 text-sm font-semibold text-forest-900 underline underline-offset-4" href="https://doi.org/10.29103/cejs.v4i4.15367" target="_blank" rel="noopener noreferrer">Buka artikel / DOI ↗</a></article>
+        <article class="rounded-2xl border border-sage-200 bg-cream-50 p-5 sm:p-6"><p class="text-xs font-bold uppercase tracking-wider text-lime-700 mb-2">2022 · Jurnal</p><h3 class="font-display font-bold text-forest-900 leading-snug">Y., S., Ishak, I., Masrullita, Eddy, K., &amp; Muhammad.</h3><p class="text-sage-700 text-sm mt-2">Pembuatan Pupuk Organik Cair dari Limbah Sayuran dengan Menggunakan Bioaktivator EM4.</p><a class="inline-flex mt-3 text-sm font-semibold text-forest-900 underline underline-offset-4" href="https://doi.org/10.29103/jtku.v11i2.9466" target="_blank" rel="noopener noreferrer">Buka artikel / DOI ↗</a></article>
+        <article class="rounded-2xl border border-sage-200 bg-cream-50 p-5 sm:p-6"><p class="text-xs font-bold uppercase tracking-wider text-lime-700 mb-2">2024 · Artikel ilmiah</p><h3 class="font-display font-bold text-forest-900 leading-snug">Chen, S., Huang, H., Zhang, J., Xu, Z., Zhu, Y., Liu, Y., dkk.</h3><p class="text-sage-700 text-sm mt-2">Artikel terkait aktivitas mikroorganisme dan biokonversi (rujukan DOI pada laporan penelitian).</p><a class="inline-flex mt-3 text-sm font-semibold text-forest-900 underline underline-offset-4" href="https://doi.org/10.1016/j.procbio.2024.09.018" target="_blank" rel="noopener noreferrer">Buka artikel / DOI ↗</a></article>
+        <article class="rounded-2xl border border-sage-200 bg-cream-50 p-5 sm:p-6"><p class="text-xs font-bold uppercase tracking-wider text-lime-700 mb-2">2025 · Jurnal JABB</p><h3 class="font-display font-bold text-forest-900 leading-snug">Indarti, Y., &amp; Rahma, F. D.</h3><p class="text-sage-700 text-sm mt-2">Edukasi Food Waste untuk Menurunkan Sisa Makanan dan Risiko Gizi di Pondok Pesantren. JABB, Vol. 6 No. 1.</p><a class="inline-flex mt-3 text-sm font-semibold text-forest-900 underline underline-offset-4" href="https://doi.org/10.46306/jabb.v6i1.1738" target="_blank" rel="noopener noreferrer">Buka artikel / DOI ↗</a></article>
+        <article class="rounded-2xl border border-sage-200 bg-cream-50 p-5 sm:p-6"><p class="text-xs font-bold uppercase tracking-wider text-lime-700 mb-2">2023 · Sumber edukasi</p><h3 class="font-display font-bold text-forest-900 leading-snug">Waste4Change</h3><p class="text-sage-700 text-sm mt-2">The Difference between Food Loss vs Food Waste and How to Avoid It.</p><a class="inline-flex mt-3 text-sm font-semibold text-forest-900 underline underline-offset-4" href="https://waste4change.com/blog/the-difference-between-food-loss-vs-food-waste-and-how-to-avoid-it/" target="_blank" rel="noopener noreferrer">Buka sumber ↗</a></article>
+      </div>
+      <p class="text-xs text-sage-500 mt-6 text-center">Tautan mengarah ke DOI atau laman publikasi/sumber yang tercantum dalam laporan penelitian.</p>
+    </div>
+  </section>
+
+  <!-- ==================== FAQ SECTION ==================== -->
+  <section id="faq" class="py-20 md:py-28 bg-cream-100 border-t border-sage-200/70 scroll-mt-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+        <span class="inline-block px-3.5 py-1 rounded-full bg-white border border-sage-200 text-forest-900 text-xs font-bold uppercase tracking-wider mb-3">
+          Informasi
+        </span>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl tracking-tight text-forest-900">
+          Pertanyaan umum
+        </h2>
+      </div>
+
+      <div class="space-y-4 reveal" id="faqContainer">
+        <!-- FAQ 1 -->
+        <div class="accordion-item open bg-white border border-sage-200 rounded-2xl overflow-hidden transition-all">
+          <button type="button" class="accordion-trigger w-full flex items-center justify-between text-left px-6 py-5 focus:outline-none">
+            <span class="font-display font-bold text-base sm:text-lg text-forest-900 pr-4">Apa itu BIOGROW?</span>
+            <span class="accordion-icon w-8 h-8 rounded-full bg-sage-100 text-forest-900 flex items-center justify-center shrink-0 font-bold text-lg">+</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-inner">
+              <p class="px-6 pb-5 text-sage-600 text-sm sm:text-base leading-relaxed border-t border-sage-100 pt-3">
+                BIOGROW adalah produk pupuk organik cair hasil pengembangan penelitian biokonversi limbah pangan.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="accordion-item bg-white border border-sage-200 rounded-2xl overflow-hidden transition-all">
+          <button type="button" class="accordion-trigger w-full flex items-center justify-between text-left px-6 py-5 focus:outline-none">
+            <span class="font-display font-bold text-base sm:text-lg text-forest-900 pr-4">Apa bahan yang digunakan?</span>
+            <span class="accordion-icon w-8 h-8 rounded-full bg-sage-100 text-forest-900 flex items-center justify-center shrink-0 font-bold text-lg">+</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-inner">
+              <p class="px-6 pb-5 text-sage-600 text-sm sm:text-base leading-relaxed border-t border-sage-100 pt-3">
+                Bahan penelitian meliputi sisa sayuran dan buah, EM4, air cucian beras, serta molase.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="accordion-item bg-white border border-sage-200 rounded-2xl overflow-hidden transition-all">
+          <button type="button" class="accordion-trigger w-full flex items-center justify-between text-left px-6 py-5 focus:outline-none">
+            <span class="font-display font-bold text-base sm:text-lg text-forest-900 pr-4">Apakah efektivitas BIOGROW pada tanaman sudah terbukti?</span>
+            <span class="accordion-icon w-8 h-8 rounded-full bg-sage-100 text-forest-900 flex items-center justify-center shrink-0 font-bold text-lg">+</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-inner">
+              <p class="px-6 pb-5 text-sage-600 text-sm sm:text-base leading-relaxed border-t border-sage-100 pt-3">
+                Penelitian ini belum mencakup uji pertumbuhan tanaman. Efektivitas aplikasi pada tanaman masih memerlukan pengujian lanjutan.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CALL TO ACTION BANNER ==================== -->
+  <section class="py-16 md:py-20 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto reveal">
+      <div class="bg-forest-900 rounded-[32px] px-6 py-12 sm:px-12 sm:py-16 text-center relative overflow-hidden shadow-2xl shadow-forest-950/20">
+        <!-- Decorative Radial Glow -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(156,204,101,0.22),transparent_55%)] pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-2xl mx-auto space-y-5">
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight">
+            Solusi hijau untuk masa depan.
+          </h2>
+          <p class="text-sage-200 text-base sm:text-lg">
+            BIOGROW • Dari limbah, untuk kehidupan yang lebih hijau.
+          </p>
+          <div class="pt-3">
+            <a href="#beranda" class="inline-flex items-center gap-2 bg-cream-200 hover:bg-white text-forest-900 font-bold px-7 py-3.5 rounded-full shadow-md hover:-translate-y-0.5 transition-all">
+              <span>Kembali ke atas</span>
+              <span aria-hidden="true">↑</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="py-8 border-t border-sage-200/60 text-center px-4">
+    <p class="text-xs sm:text-sm text-sage-600 font-medium">
+      © 2026 BIOGROW · Website profil produk penelitian OPI
+    </p>
+  </footer>
+
+  <!-- ==================== INTERACTIVE SCRIPTS ==================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuIconOpen = document.getElementById('menuIconOpen');
+      const menuIconClose = document.getElementById('menuIconClose');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+
+      function toggleMobileMenu() {
+        const isHidden = mobileMenu.classList.contains('hidden');
+        mobileMenu.classList.toggle('hidden', !isHidden);
+        menuIconOpen.classList.toggle('hidden', isHidden);
+        menuIconClose.classList.toggle('hidden', !isHidden);
+      }
+
+      mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (!mobileMenu.classList.contains('hidden')) {
+            toggleMobileMenu();
+          }
+        });
+      });
+
+      // 2. Interactive Ingredient Explorer
+      const ingredientData = {
+        limbah: {
+          icon: '🥬',
+          title: 'Sisa Sayuran & Buah (Substrat Organik)',
+          desc: 'Berfungsi sebagai bahan baku utama kaya senyawa organik yang akan diuraikan oleh mikroorganisme menjadi bentuk cair yang lebih sederhana.'
+        },
+        em4: {
+          icon: '🦠',
+          title: 'EM4 (Effective Microorganisms 4)',
+          desc: 'Berperan sebagai bioaktivator berisi konsorsium mikroba fermentasi yang diuji dengan variasi penambahan untuk mempercepat biokonversi.'
+        },
+        beras: {
+          icon: '🌾',
+          title: 'Air Cucian Beras',
+          desc: 'Menjadi media cair sekaligus sumber nutrisi tambahan yang mendukung pertumbuhan serta aktivitas mikroorganisme selama fermentasi.'
+        },
+        molase: {
+          icon: '🍯',
+          title: 'Molase',
+          desc: 'Berfungsi sebagai sumber energi (karbon/gula) bagi mikroba EM4 agar proses fermentasi bahan organik berjalan optimal.'
+        }
+      };
+
+      const ingBtns = document.querySelectorAll('.ing-btn');
+      const ingIcon = document.getElementById('ingIcon');
+      const ingTitle = document.getElementById('ingTitle');
+      const ingDesc = document.getElementById('ingDesc');
+
+      ingBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Reset button styles
+          ingBtns.forEach(b => {
+            b.classList.remove('active', 'border-2', 'border-forest-900', 'bg-forest-900', 'text-white', 'shadow-sm');
+            b.classList.add('border', 'border-sage-200', 'bg-white', 'text-forest-900');
+          });
+
+          // Activate clicked button
+          btn.classList.remove('border', 'border-sage-200', 'bg-white', 'text-forest-900');
+          btn.classList.add('active', 'border-2', 'border-forest-900', 'bg-forest-900', 'text-white', 'shadow-sm');
+
+          const key = btn.getAttribute('data-ing');
+          const data = ingredientData[key];
+          if (data) {
+            ingIcon.textContent = data.icon;
+            ingTitle.textContent = data.title;
+            ingDesc.textContent = data.desc;
+          }
+        });
+      });
+
+      // 3. Interactive 16-Day Fermentation Timeline
+      const daySlider = document.getElementById('daySlider');
+      const dayTabs = document.querySelectorAll('.day-tab');
+      const currentDayBadge = document.getElementById('currentDayBadge');
+      const obsPhase = document.getElementById('obsPhase');
+      const obsDesc = document.getElementById('obsDesc');
+      const obsPhysicalTitle = document.getElementById('obsPhysicalTitle');
+      const obsPhysical = document.getElementById('obsPhysical');
+      const obsTestTitle = document.getElementById('obsTestTitle');
+      const obsTest = document.getElementById('obsTest');
+
+      function updateTimeline(dayVal) {
+        const day = parseInt(dayVal, 10);
+        daySlider.value = day;
+        currentDayBadge.textContent = `Fase: Hari ke-${day}`;
+
+        // Update active tab pill
+        dayTabs.forEach(tab => {
+          const tabDay = parseInt(tab.getAttribute('data-day'), 10);
+          const isMatch = (day <= 5 && tabDay === 1) || (day > 5 && day < 14 && tabDay === 8) || (day >= 14 && tabDay === 16);
+          if (isMatch) {
+            tab.classList.add('bg-forest-900', 'text-white');
+            tab.classList.remove('text-forest-900');
+          } else {
+            tab.classList.remove('bg-forest-900', 'text-white');
+            tab.classList.add('text-forest-900');
+          }
+        });
+
+        // Update content strictly aligned with research scope
+        if (day <= 5) {
+          obsPhase.textContent = 'Pencampuran & Inokulasi Awal';
+          obsDesc.textContent = 'Sisa sayuran dan buah dicampurkan bersama air cucian beras, molase, serta variasi penambahan EM4 untuk memulai aktivitas mikroba.';
+          obsPhysicalTitle.textContent = 'Fase Awal Bahan';
+          obsPhysical.textContent = 'Potongan bahan organik masih tampak segar dan mulai beradaptasi di dalam media cair fermentasi.';
+          obsTestTitle.textContent = 'Persiapan Sampel Variasi';
+          obsTest.textContent = 'Pencatatan kondisi awal tiap perlakuan variasi penambahan EM4 sebelum proses fermentasi berlanjut.';
+        } else if (day < 14) {
+          obsPhase.textContent = 'Biokonversi Aktif Berlangsung';
+          obsDesc.textContent = 'Mikroorganisme dari EM4 memanfaatkan molase dan nutrisi air cucian beras untuk menguraikan jaringan sisa sayuran dan buah.';
+          obsPhysicalTitle.textContent = 'Perubahan Tekstur & Warna';
+          obsPhysical.textContent = 'Bahan organik mulai melunak dan mengalami dekomposisi bertahap seiring aktivitas fermentasi mikroba.';
+          obsTestTitle.textContent = 'Pemantauan Proses Fermentasi';
+          obsTest.textContent = 'Pengamatan berkala terhadap perkembangan fisik larutan pada masing-masing variasi perlakuan.';
+        } else {
+          obsPhase.textContent = 'Pematangan & Pengujian Akhir (Hari ke-16)';
+          obsDesc.textContent = 'Proses fermentasi selama 16 hari selesai dan menghasilkan sampel pupuk organik cair BIOGROW siap uji.';
+          obsPhysicalTitle.textContent = 'Karakteristik Fisik Akhir';
+          obsPhysical.textContent = 'Pengamatan menyeluruh terhadap tampilan fisik cairan hasil biokonversi limbah pangan.';
+          obsTestTitle.textContent = 'Pengukuran pH & Kit Hara';
+          obsTest.textContent = 'Sampel diuji nilai pH serta dilakukan pembacaan kandungan hara menggunakan kit pengujian.';
+        }
+      }
+
+      daySlider.addEventListener('input', (e) => updateTimeline(e.target.value));
+      dayTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          updateTimeline(tab.getAttribute('data-day'));
+        });
+      });
+
+      // 4. Smooth FAQ Accordion
+      const accordionItems = document.querySelectorAll('.accordion-item');
+      accordionItems.forEach(item => {
+        const trigger = item.querySelector('.accordion-trigger');
+        trigger.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+          // Close others for clean focus
+          accordionItems.forEach(other => other.classList.remove('open'));
+          if (!isOpen) {
+            item.classList.add('open');
+          }
+        });
+      });
+
+      // 5. Scroll Reveal Animation
+      const revealElements = document.querySelectorAll('.reveal');
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      revealElements.forEach(el => revealObserver.observe(el));
+
+    });
+  </script>
+</body>
+</html>
